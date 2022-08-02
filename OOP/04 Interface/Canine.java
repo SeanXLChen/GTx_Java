@@ -1,4 +1,4 @@
-public class Canine {
+public abstract class Canine {
     //instance variable
     protected double size;
     
@@ -13,7 +13,5 @@ public class Canine {
     }
 
     //method
-    public void groom() {
-        System.out.println("Canine Default Grooming");
-    }
+    public abstract void groom();
 }
