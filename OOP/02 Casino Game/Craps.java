@@ -15,7 +15,7 @@ public class Craps {
         return total;
     }
 
-    private void go() {
+    public void go() {
         point = toss();
         System.out.println("Point: " + point);
         if ((point == 7) || (point == 11)) {
@@ -30,7 +30,7 @@ public class Craps {
         }
     }
 
-    public void stage2() {
+    private void stage2() {
         boolean endGame = false;
 
         while (!endGame) {
