@@ -22,6 +22,7 @@ public class Dog extends Canine {
         return ((doggy.size == size) && (doggy.name.equals(name)));
     }
 
+
     public static void main(String[] args) {
         Dog riddle = new Dog("Riddle", 171);
         Dog riddleCopy = new Dog("Riddle", 175);

@@ -35,11 +35,15 @@ public class Fly {
 
     //!!!need to add more validation lateer!!!
     public void setMass(double mass) {
+        if (mass >= 0) {
             this.mass = mass;
+        }
     }
 
     public void setSpeed(double speed) {
+        if (speed > 0) {
             this.speed = speed;
+        }
     }
 
     // methods
