@@ -1,10 +1,10 @@
 import java.util.Arrays;
 
 public class RedAstronaut extends Player implements Impostor {
-    //variables
+    // variables
     private String skill;
 
-    //static variables
+    // static variables
     private static String DEFAULT_skill = "experienced";
     private static int DEFAULT_susLevel = 15;
 
@@ -17,23 +17,23 @@ public class RedAstronaut extends Player implements Impostor {
         this.skill = skill.toLowerCase();
     }
 
-    //method
+    // method
     public void emergencyMeeting() {
         if (!this.isFrozen()) {
             Player[] players = this.getPlayers();
             Arrays.sort(players);
             int first = players.length - 1;
             int second = 0;
-            while (players[first].isFrozen()) {
+            while (players[first].isFrozen() || this.equals(players[first])) {
                 first--;
             }
-            second = first-1;
-            while (players[second].isFrozen()) {
+            second = first - 1;
+            while (players[second].isFrozen() || this.equals(players[first])) {
                 second--;
             }
             if (players[first].getSusLevel() != players[second].getSusLevel()) {
                 players[first].setFrozen(true);
-            } 
+            }
         }
         this.gameOver();
     }
@@ -46,29 +46,29 @@ public class RedAstronaut extends Player implements Impostor {
                 this.setSusLevel(this.getSusLevel() * 2);
             }
             this.gameOver();
-        } 
+        }
     }
 
     public void sabotage(Player p) {
         if (!(p instanceof Impostor) && !this.isFrozen() && !p.isFrozen()) {
             if (this.getSusLevel() < 20) {
-                p.setSusLevel((int)(p.getSusLevel()*1.5));
+                p.setSusLevel((int) (p.getSusLevel() * 1.5));
+            } else {
+                p.setSusLevel((int) (p.getSusLevel() * 1.25));
             }
-            else {
-                p.setSusLevel((int)(p.getSusLevel()*1.25));
-            }
-        } 
+        }
     }
 
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         if (o instanceof RedAstronaut) {
             RedAstronaut r = (RedAstronaut) o;
-            return this.getName().equals(r.getName()) && this.isFrozen() == r.isFrozen() && this.getSusLevel() == r.getSusLevel();
-        } 
+            return this.getName().equals(r.getName()) && this.isFrozen() == r.isFrozen()
+                    && this.getSusLevel() == r.getSusLevel();
+        }
         return false;
     }
 
-    public String toString(){
+    public String toString() {
         String output = super.toString() + " I am an " + this.skill + " player!";
         if (this.getSusLevel() > 15) {
             return output.toUpperCase();

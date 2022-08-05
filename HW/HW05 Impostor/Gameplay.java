@@ -1,0 +1,70 @@
+public class Gameplay {
+    public static void main(String[] args) {
+        BlueAstronaut bob   = new BlueAstronaut("Bob", 20, 6, 3);
+        BlueAstronaut heath = new BlueAstronaut("Heath", 30, 3, 21);
+        System.out.println(bob.toString());
+        BlueAstronaut albert = new BlueAstronaut("Albert", 44, 2, 0);
+        BlueAstronaut angel = new BlueAstronaut("Angel", 0, 1, 0);
+        System.out.println(angel.toString());
+        RedAstronaut liam = new RedAstronaut("Liam", 19, "experienced");
+        System.out.println(liam.toString());
+        RedAstronaut someone = new RedAstronaut("Suspicious Person", 100, "expert");
+        System.out.println(someone.toString());
+
+        System.out.println("\n====================\n");
+        liam.sabotage(bob);
+        System.out.println(bob.toString());
+        liam.freeze(someone);
+        System.out.println(someone.toString());
+        liam.freeze(albert);
+        System.out.println(liam.toString());
+        System.out.println(albert.toString());
+        System.out.println("\nAlbert Called emergencyMeeting\n");
+        albert.emergencyMeeting();
+        System.out.println(bob.toString());
+        System.out.println(albert.toString());
+        System.out.println(someone.toString());
+        System.out.println("\nSuspiciouss Person Called emergencyMeeting\n");
+        someone.emergencyMeeting();
+        System.out.println(bob.toString());
+        System.out.println(albert.toString());
+        System.out.println(someone.toString());
+        System.out.println("\nBob Called emergencyMeeting\n");
+        bob.emergencyMeeting();
+        System.out.println(bob.toString());
+        System.out.println(albert.toString());
+        System.out.println(someone.toString());
+        System.out.println(heath.toString());
+        System.out.println("\nHeath Called Complete tasks\n");
+        heath.completeTask();
+        System.out.println(heath.toString());
+        System.out.println("\nHeath Called Complete tasks\n");
+        heath.completeTask();
+        System.out.println(heath.toString());
+        System.out.println(liam.toString());
+        System.out.println(angel.toString());
+        System.out.println("\nLiam freeze angel\n");
+        liam.freeze(angel);
+        System.out.println(liam.toString());
+        System.out.println(angel.toString());
+        System.out.println(bob.toString());
+        System.out.println("\nLiam sabotage bob\n");
+        liam.sabotage(bob);
+        System.out.println(bob.toString());
+        liam.sabotage(bob);
+        System.out.println(bob.toString());
+        System.out.println("\nLiam freeze bob\n");
+        liam.freeze(bob);
+        System.out.println(bob.toString());
+        // angel.emergencyMeeting();
+        // System.out.println(liam.toString());
+        liam.sabotage(heath);
+        liam.sabotage(heath);
+        liam.sabotage(heath);
+        liam.sabotage(heath);
+        liam.sabotage(heath);
+        liam.freeze(heath);
+        System.out.println(heath.toString());
+
+    }
+}

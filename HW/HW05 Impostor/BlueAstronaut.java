@@ -12,15 +12,19 @@ public class BlueAstronaut extends Player implements Crewmate {
     private static int DEFAULT_taskSpeed = 10;
 
     // constructors
-    public BlueAstronaut(String name, int DEFAULT_susLevel, int DEFAULT_numTasks, int DEFAULT_taskSpeed) {
+    public BlueAstronaut(String name) {
         this(name, DEFAULT_susLevel, DEFAULT_numTasks, DEFAULT_taskSpeed);
     }
 
     public BlueAstronaut(String name, int susLevel, int numTasks, int taskSpeed) {
-
         super(name, susLevel);
         this.numTasks = numTasks;
-        this.taskSpeed = taskSpeed;
+        if (taskSpeed >= 0) {
+            this.taskSpeed = taskSpeed;
+        }
+        else {
+            this.taskSpeed = DEFAULT_taskSpeed;
+        }
     }
 
     // method
@@ -68,10 +72,19 @@ public class BlueAstronaut extends Player implements Crewmate {
     public boolean equals(Object o){
         if (o instanceof BlueAstronaut) {
             BlueAstronaut b = (BlueAstronaut)o;
-            return this.name.equals(b.getName()) && this.isFrozen() == b.isFrozen() 
+            return (this.getName().equals(b.getName()) && this.isFrozen() == b.isFrozen() 
             && this.getSusLevel()==b.getSusLevel() && this.numTasks==b.numTasks 
-            && this.taskSpeed==b.taskSpeed;
+            && this.taskSpeed==b.taskSpeed);
+        }
+        return false;
+    }
+    
+    public String toString() {
+        String statement = super.toString() + " I have " + this.numTasks + " left over.";
+        if(this.getSusLevel() > 15) {
+        	return statement.toUpperCase();
+        } else {
+        	return statement;
         }
     }
-
 }
