@@ -24,32 +24,28 @@ public class Dog extends Pet {
     public int treat() {
         heal();
         if (droolRate < 3.5) {
-            return (int)(Math.ceil((this.getPainLevel() * 2)/this.getHealth()));
-        } 
-        else if (droolRate <= 7.5) {
-            return (int)(Math.ceil(this.getPainLevel()/this.getHealth()));
-        }
-        else {
-            return (int)(Math.ceil(this.getPainLevel()/(this.getHealth()*2)));
+            return (int) (Math.ceil((this.getPainLevel() * 2) / this.getHealth()));
+        } else if (droolRate <= 7.5) {
+            return (int) (Math.ceil(this.getPainLevel() / this.getHealth()));
+        } else {
+            return (int) (Math.ceil(this.getPainLevel() / (this.getHealth() * 2)));
         }
     }
 
     public void speak() {
         super.speak();
-        String speakText = "bark ".repeat(this.getPainLevel()-1);
-        speakText = speakText + " bark";
+        String speakText = "bark ".repeat(this.getPainLevel());
+        speakText = speakText.trim();
         if (this.getPainLevel() > 5) {
             System.out.println(speakText.toUpperCase());
-        }
-        else {
+        } else {
             System.out.println(speakText);
         }
     }
 
-
     public boolean equals(Object o) {
         if (o instanceof Dog) {
-            Dog d = (Dog)o;
+            Dog d = (Dog) o;
             return this.getName() == d.getName() && this.droolRate == d.getDroolRate();
         }
         return false;

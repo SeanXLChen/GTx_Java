@@ -1,7 +1,4 @@
-
-import java.io.InvalidObjectException;
-
-public class InvalidPetException extends InvalidObjectException{
+public class InvalidPetException extends RuntimeException {
     public InvalidPetException() {
         this("Your pet is invalid!");
     }
