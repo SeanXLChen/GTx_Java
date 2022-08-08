@@ -2,16 +2,17 @@ public class Dog extends Pet {
     // variables
     private double droolRate;
 
-    private static double DEFAULT_droolRate = 5.0;
 
     public Dog(String name, double health, int painLevel) {
-        this(name, health, painLevel, DEFAULT_droolRate);
+        this(name, health, painLevel, 5.0);
     }
 
     public Dog(String name, double health, int painLevel, double droolRate) {
         super(name, health, painLevel);
         if (droolRate <= 0) {
             this.droolRate = 0.5;
+        } else {
+            this.droolRate = droolRate;
         }
     }
 
@@ -22,14 +23,16 @@ public class Dog extends Pet {
 
     // methods
     public int treat() {
-        heal();
+        int time;
         if (droolRate < 3.5) {
-            return (int) (Math.ceil((this.getPainLevel() * 2) / this.getHealth()));
+            time =  (int) (Math.ceil((this.getPainLevel() * 2) / this.getHealth()));
         } else if (droolRate <= 7.5) {
-            return (int) (Math.ceil(this.getPainLevel() / this.getHealth()));
+            time =  (int) (Math.ceil(this.getPainLevel() / this.getHealth()));
         } else {
-            return (int) (Math.ceil(this.getPainLevel() / (this.getHealth() * 2)));
+            time = (int) (Math.ceil(this.getPainLevel() / (this.getHealth() * 2)));
         }
+        heal();
+        return time;
     }
 
     public void speak() {
@@ -44,10 +47,6 @@ public class Dog extends Pet {
     }
 
     public boolean equals(Object o) {
-        if (o instanceof Dog) {
-            Dog d = (Dog) o;
-            return this.getName() == d.getName() && this.droolRate == d.getDroolRate();
-        }
-        return false;
+        return super.equals(o) && this.droolRate == ((Dog)o).droolRate;
     }
 }

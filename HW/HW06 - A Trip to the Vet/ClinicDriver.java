@@ -13,6 +13,7 @@ public class ClinicDriver {
         } catch (FileNotFoundException exception) {
             exception.printStackTrace();
         }
+        // System.out.print(dayOneReport);
         String[] dayOneAppointments = dayOneReport.split("\\n");
         for (String appointment : dayOneAppointments) {
             if (!clinic.addToFile(appointment)) {

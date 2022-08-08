@@ -37,6 +37,7 @@ public class Clinic {
         String line = null;
         String curName;
         String curType;
+        // String curAttr;
         String curTime;
         String curTimeEnd;
         double curDroolRate;
@@ -51,6 +52,7 @@ public class Clinic {
 
             curName = tokens[0];
             curType = tokens[1];
+            // curAttr = tokens[2];
             curTime = tokens[3];
 
             /*
@@ -105,35 +107,35 @@ public class Clinic {
             }
 
             // Treat pet based on pet type
+            Pet patient;
             if (curType.equals("Dog")) {
                 curDroolRate = Double.parseDouble(tokens[2]);
-                Dog dog = new Dog(curName, curHealth, curPainLevel, curDroolRate);
-                dog.speak();
-                int time_took = dog.treat();
-                curTimeEnd = addTime(curTime, time_took);
-                return_text = String.format("%s,%s,%.1f,Day %d,%s,%s,%.1f,%d\n", curName, curType, curDroolRate, day,
-                        curTime, curTimeEnd, curHealth, curPainLevel);
-                total += return_text;
+                patient = new Dog(curName, curHealth, curPainLevel, curDroolRate);
+                // dog.speak();
+                // int time_took = dog.treat();
+                // curTimeEnd = addTime(curTime, time_took);
+                // return_text = String.format("%s,%s,%.1f,Day %d,%s,%s,%.1f,%d\n", curName,
+                // curType, curDroolRate, day,
+                // curTime, curTimeEnd, curHealth, curPainLevel);
+                // total += return_text;
             } else {
                 curMiceCaught = Integer.parseInt(tokens[2]);
-                Cat cat = new Cat(curName, curHealth, curPainLevel, curMiceCaught);
-                cat.speak();
-                // calculate time took to treat()
-                int time_took = cat.treat();
-                curTimeEnd = addTime(curTime, time_took);
-                // System.out.println("curName: " + curName);
-                // System.out.println("curType: " + curType);
-                // System.out.println("curMiceCaught: " + curMiceCaught);
-                // System.out.println("day: " + day);
-                // System.out.println("curTime: " + curTime);
-                // System.out.println("curTimeEnd: " + curTimeEnd);
-                // System.out.println("curHealth: " + curHealth);
-                // System.out.println("curPainLevel: " + curPainLevel);
-                return_text = String.format("%s,%s,%d,Day %d,%s,%s,%.1f,%d\n", curName, curType, curMiceCaught, day,
-                        curTime, curTimeEnd, curHealth, curPainLevel);
-                total += return_text;
+                patient = new Cat(curName, curHealth, curPainLevel, curMiceCaught);
+                // cat.speak();
+                // // calculate time took to treat()
+                // int time_took = cat.treat();
+                // curTimeEnd = addTime(curTime, time_took);
+                // return_text = String.format("%s,%s,%d,Day %d,%s,%s,%.1f,%d\n", curName,
+                // curType, curMiceCaught, day,
+                // curTime, curTimeEnd, curHealth, curPainLevel);
+                // total += return_text;
             }
-
+            patient.speak();
+            int time_took = patient.treat();
+            curTimeEnd = addTime(curTime, time_took);
+            return_text = String.format("%s,%s,%s,Day %d,%s,%s,%.1f,%d\n", curName, curType, tokens[2], day,
+                    curTime, curTimeEnd, curHealth, curPainLevel);
+            total += return_text;
             // each iteration ++
         }
 
@@ -146,6 +148,7 @@ public class Clinic {
         if (userInput != null) {
             userInput.close();
         }
+        // System.out.print(total);
         return total;
     }
 
@@ -163,15 +166,16 @@ public class Clinic {
                 String line = fileScan.nextLine();
                 if (line.startsWith(tokens[0])) {
                     isNewCustomer = false;
-                    line += (String.format("Day %s,%s,%s,%s,%s", tokens[3], tokens[4], tokens[5], tokens[6],
+                    line += (String.format(",%s,%s,%s,%s,%s", tokens[3], tokens[4], tokens[5], tokens[6],
                             tokens[7]));
                 }
                 output += (line + "\n");
+                // System.out.print("addToFIle path1: " + output);
             }
             if (isNewCustomer) {
                 output += patientInfo;
+                // System.out.print("addToFIle path2: " + output);
             }
-
             // can't read & write at same time.
             fileScan.close();
             fileWrite = new PrintWriter(patientFile);
@@ -184,22 +188,24 @@ public class Clinic {
                 fileScan.close();
             }
             if (fileWrite != null) {
-                fileScan.close();
+                fileWrite.close();
             }
         }
     }
 
     protected String addTime(String timeIn, int treatmentTime) {
         int hour = Integer.parseInt(timeIn.substring(0, 2));
-        int minute = Integer.parseInt(timeIn.substring(1));
-        for (int i = 0; i < treatmentTime; i++) {
-            if (minute < 60) {
-                minute++;
-            } else {
-                hour++;
-                minute = 0;
-            }
-        }
+        int minute = Integer.parseInt(timeIn.substring(2));
+        // for (int i = 0; i < treatmentTime; i++) {
+        //     if (minute < 60) {
+        //         minute++;
+        //     } else {
+        //         hour++;
+        //         minute = 0;
+        //     }
+        // }
+        hour = hour + (int)((minute + treatmentTime)/60);
+        minute = (minute + treatmentTime) % 60;
 
         if (hour < 10 && minute < 10) {
             return String.format("0%d0%d", hour, minute);

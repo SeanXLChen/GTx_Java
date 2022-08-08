@@ -23,14 +23,16 @@ public class Cat extends Pet {
 
     // method
     public int treat() {
-        heal();
+        int time;
         if (miceCaught < 4) {
-            return (int) (Math.ceil((this.getPainLevel() * 2) / this.getHealth()));
+            time= (int) (Math.ceil((this.getPainLevel() * 2) / this.getHealth()));
         } else if (miceCaught <= 7) {
-            return (int) (Math.ceil(this.getPainLevel() / this.getHealth()));
+            time= (int) (Math.ceil(this.getPainLevel() / this.getHealth()));
         } else {
-            return (int) (Math.ceil(this.getPainLevel() / (this.getHealth() * 2)));
+            time= (int) (Math.ceil(this.getPainLevel() / (this.getHealth() * 2)));
         }
+        heal();
+        return time;
     }
 
     public void speak() {
@@ -41,16 +43,12 @@ public class Cat extends Pet {
             if (this.getPainLevel() > 5) {
                 System.out.println(speakText.toUpperCase());
             } else {
-                System.out.println();
+                System.out.println(speakText);
             }
         }
     }
 
     public boolean equals(Object o) {
-        if (o instanceof Cat) {
-            Cat c = (Cat) o;
-            return this.getName() == c.getName() && this.miceCaught == c.getMiceCaught();
-        }
-        return false;
+            return super.equals(o) && this.miceCaught == ((Cat)o).miceCaught;
     }
 }
